@@ -1,66 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-  --color-oat-ink: #0d0c0a;
-  --color-oat-ink-soft: #15130f;
-  --color-oat-ink-raised: #1b1813;
-  --color-oat-cream: #ece5d4;
-  --color-oat-cream-dim: #c5bda8;
-  --color-oat-cream-dimmer: #8a8270;
-  --color-oat-amber: #d99b5c;
-  --color-oat-amber-bright: #f0b06c;
-  --color-oat-rust: #b86a3e;
-  --color-oat-moss: #7ba475;
-  --color-oat-line: rgba(236, 229, 212, 0.08);
-  --color-oat-line-strong: rgba(236, 229, 212, 0.14);
+  --color-ink: #000000;
+  --color-ink-soft: #0a0a0a;
+  --color-ink-raised: #111111;
+  --color-ink-elevated: #1a1a1a;
+  --color-snow: #ffffff;
+  --color-snow-dim: #ededed;
+  --color-snow-muted: #a1a1aa;
+  --color-snow-mute-2: #71717a;
+  --color-snow-faint: #52525b;
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
+  --color-line-bright: rgba(255, 255, 255, 0.22);
+  --color-accent: #ffffff;
+  --color-status-live: #ffffff;
 
-  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", monospace;
-
-  --shadow-glow: 0 40px 120px -40px rgba(217, 155, 92, 0.25);
 }
 
 html {
-  background: var(--color-oat-ink);
-  color: var(--color-oat-cream);
+  background: var(--color-ink);
+  color: var(--color-snow);
 }
 
 body {
   font-family: var(--font-sans);
-  font-feature-settings: "ss01", "cv11";
-  background: var(--color-oat-ink);
-  color: var(--color-oat-cream);
-  background-image:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(217, 155, 92, 0.08), transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 30%, rgba(184, 106, 62, 0.04), transparent 60%);
+  background: var(--color-ink);
+  color: var(--color-snow);
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.85 0 0 0 0 0.75 0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-}
-
-.font-display {
-  font-family: var(--font-display);
-  font-feature-settings: "ss01";
-}
-
-.display-italic {
-  font-family: var(--font-display);
+/* Italic accent — uses sans italic, kept as a class so we can tune it in one place */
+.accent-italic {
   font-style: italic;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 .caret::after {
   content: "▍";
-  color: var(--color-oat-amber);
+  color: var(--color-snow);
   margin-left: 1px;
   animation: blink 1s step-end infinite;
 }
@@ -70,15 +50,17 @@ body::before {
 }
 
 ::selection {
-  background: var(--color-oat-amber);
-  color: var(--color-oat-ink);
+  background: var(--color-snow);
+  color: var(--color-ink);
 }
 
+/* Hairline gradient line */
 .hairline {
-  background: linear-gradient(90deg, transparent, var(--color-oat-line-strong), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-line-strong), transparent);
   height: 1px;
 }
 
+/* Live ripple */
 .live-dot {
   position: relative;
 }
@@ -94,6 +76,12 @@ body::before {
 @keyframes ripple {
   0% { transform: scale(0.6); opacity: 0.4; }
   100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Subtle dot grid background utility */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 @media (prefers-reduced-motion: reduce) {
