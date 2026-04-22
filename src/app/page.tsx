@@ -5,13 +5,18 @@ import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Nav } from "@/components/Nav";
 import { Privacy } from "@/components/Privacy";
+import { getLatestRelease } from "@/lib/release";
 
-export default function Home() {
+export const revalidate = 3600;
+
+export default async function Home() {
+  const release = await getLatestRelease();
+
   return (
     <div className="flex flex-col flex-1 min-h-screen">
       <Nav />
       <main className="flex-1">
-        <Hero />
+        <Hero version={release.tagName} />
         <HowItWorks />
         <Privacy />
         <Features />

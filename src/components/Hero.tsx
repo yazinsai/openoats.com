@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import { AppWindow } from "./AppWindow";
 import { Logo } from "./Logo";
 
-export function Hero() {
+export function Hero({ version }: { version: string | null }) {
   return (
     <section className="relative px-6 sm:px-10 pt-12 sm:pt-20 pb-24 sm:pb-32 overflow-hidden">
       {/* sharp grid */}
@@ -30,7 +30,9 @@ export function Hero() {
             className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-line-strong bg-ink-soft text-[11px] font-mono text-snow-muted mb-8"
           >
             <Logo size={12} bare />
-            <span>v1.60.1 · macOS · Apple Silicon</span>
+            <span>
+              {version ? `${version} · ` : ""}macOS · Apple Silicon
+            </span>
           </motion.div>
 
           <motion.h1
