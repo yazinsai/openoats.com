@@ -3,6 +3,7 @@ import { Features } from "@/components/Features";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
+import { JsonLd } from "@/components/JsonLd";
 import { Nav } from "@/components/Nav";
 import { Privacy } from "@/components/Privacy";
 import { getLatestRelease } from "@/lib/release";
@@ -14,6 +15,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col flex-1 min-h-screen">
+      <JsonLd version={release.tagName} />
       <Nav />
       <main className="flex-1">
         <Hero version={release.tagName} />
