@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -107,6 +108,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-ink text-snow">
         {children}
+        <GoogleAnalytics />
       </body>
     </html>
   );
