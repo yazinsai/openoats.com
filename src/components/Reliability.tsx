@@ -8,8 +8,8 @@ const STATS = [
       "Audio goes to disk every couple of seconds. After a crash, a force quit or a flat battery, the Meeting is recovered the next time OpenOats opens.",
   },
   {
-    value: "0.2%",
-    label: "CPU while recording",
+    value: "< 2%",
+    label: "of one CPU core while recording",
     detail: "Nothing is transcribed during the call. Speech models load after you press Stop and unload when they're done.",
   },
   {
