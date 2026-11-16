@@ -1,146 +1,109 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Icon } from "@iconify/react";
-import { AppWindow } from "./AppWindow";
-import { Logo } from "./Logo";
+import { DownloadButtons } from "./ui";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero({ version }: { version: string | null }) {
   return (
-    <section className="relative px-6 sm:px-10 pt-12 sm:pt-20 pb-24 sm:pb-32 overflow-hidden">
-      {/* sharp grid */}
+    <section className="relative px-5 sm:px-10 pt-14 sm:pt-24 pb-20 sm:pb-28 overflow-hidden">
       <div
         aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-          maskImage:
-            "radial-gradient(ellipse 70% 60% at 50% 30%, black 30%, transparent 80%)",
-        }}
+        className="absolute inset-0 -z-10 paper-grain"
+        style={{ maskImage: "radial-gradient(ellipse 60% 50% at 50% 20%, black 20%, transparent 75%)" }}
+      />
+      <div
+        aria-hidden
+        className="absolute -z-10 left-1/2 top-[420px] -translate-x-1/2 w-[1100px] h-[700px] rounded-full"
+        style={{ background: "radial-gradient(closest-side, rgba(43,100,73,0.10), transparent)" }}
       />
 
-      <div className="mx-auto max-w-[1280px] grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">
-        <div className="lg:col-span-7 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-line-strong bg-ink-soft text-[11px] font-mono text-snow-muted mb-8"
-          >
-            <Logo size={12} bare />
-            <span>
-              {version ? `${version} · ` : ""}macOS · Apple Silicon
-            </span>
-          </motion.div>
+      <div className="mx-auto max-w-[1200px] flex flex-col items-center text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-line bg-paper-2 text-[12px] font-mono text-ink-2 mb-8"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-moss" />
+          {version ? `${version} · ` : ""}macOS · Apple Silicon · Free
+        </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-            className="font-sans text-[48px] sm:text-[68px] lg:text-[88px] leading-[0.95] tracking-[-0.04em] text-snow font-semibold"
-          >
-            A meeting
-            <br />
-            note-taker
-            <br />
-            <span className="accent-italic font-normal text-snow-muted">
-              that talks back.
-            </span>
-          </motion.h1>
+        <motion.h1
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.05, ease }}
+          className="font-serif font-semibold text-[52px] sm:text-[80px] lg:text-[96px] leading-[0.98] tracking-[-0.025em] text-ink"
+        >
+          Press Start.
+          <br />
+          <span className="italic font-normal text-ink-2">Forget it&rsquo;s running.</span>
+        </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
-            className="mt-8 max-w-[520px] text-[16.5px] leading-[1.55] text-snow-muted"
-          >
-            OpenOats sits next to your call, transcribes both sides in real
-            time, and searches your own notes to surface things worth saying —
-            right when you need them.
-          </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-8 max-w-[620px] text-[17px] sm:text-[18.5px] leading-[1.55] text-ink-2 text-pretty"
+        >
+          OpenOats records your meetings on your Mac. When you press Stop, it writes one markdown file: Notes on
+          top, a You/Them transcript underneath. Nothing to set up, nothing to watch.
+        </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="mt-10 flex flex-col sm:flex-row gap-2.5 items-start sm:items-center"
-          >
-            <a
-              href="https://github.com/yazinsai/OpenOats/releases/latest"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2.5 h-12 px-5 rounded-md bg-snow text-ink font-medium text-[14px] hover:bg-snow-dim transition-colors"
-            >
-              <Icon icon="simple-icons:apple" className="w-4 h-4" />
-              Download for Mac
-              <span className="text-[11px] font-mono opacity-50 ml-1 pl-2.5 border-l border-ink/20">
-                FREE · DMG
-              </span>
-            </a>
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.32 }}
+          className="mt-10"
+        >
+          <DownloadButtons center />
+        </motion.div>
 
-            <a
-              href="https://github.com/yazinsai/OpenOats"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 h-12 px-4 rounded-md bg-ink-soft border border-line-strong hover:border-line-bright transition-colors text-snow text-[14px]"
-            >
-              <Icon icon="simple-icons:github" className="w-4 h-4" />
-              View on GitHub
-            </a>
-          </motion.div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+          className="mt-6 text-[13px] text-ink-3"
+        >
+          Transcribes on your Mac · No account · No bot in your call · Open source
+        </motion.p>
+      </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-snow-faint"
-          >
-            <div className="flex items-center gap-1.5">
-              <Icon icon="solar:shield-check-linear" className="w-4 h-4 text-snow-muted" />
-              <span>Audio never leaves your Mac</span>
-            </div>
-            <span className="hidden sm:block w-px h-3 bg-line-strong" />
-            <div className="flex items-center gap-1.5">
-              <Icon icon="solar:code-linear" className="w-4 h-4 text-snow-muted" />
-              <span>Open source · MIT</span>
-            </div>
-          </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.25, ease }}
+        className="relative mx-auto mt-16 sm:mt-20 max-w-[1160px]"
+      >
+        <div className="relative w-[150%] sm:w-[86%]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/shots/window-notes.webp"
+            srcSet="/shots/window-notes-1200.webp 1200w, /shots/window-notes.webp 2400w"
+            sizes="(max-width: 640px) 150vw, (max-width: 1200px) 86vw, 1000px"
+            width={2400}
+            height={1680}
+            alt="The OpenOats window with a Meeting file open: a Summary, Decisions and Action Items for a spring launch plan, with the Transcript below"
+            className="shot w-full h-auto"
+          />
         </div>
-
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="lg:col-span-5 relative"
+          transition={{ duration: 0.8, delay: 0.7, ease }}
+          className="absolute right-0 top-[46%] sm:top-[44%] w-[44%] sm:w-[26%]"
         >
-          <AppWindow />
-
-          <motion.div
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-            className="hidden sm:flex absolute -left-6 top-[28%] items-center gap-2 px-3 py-1.5 rounded-md bg-ink-elevated border border-line-strong text-[11px] font-mono text-snow-muted"
-            style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.5)" }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-snow" />
-            pulls from your notes
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.5, duration: 0.6 }}
-            className="hidden sm:flex absolute -right-2 bottom-[12%] items-center gap-2 px-3 py-1.5 rounded-md bg-ink-elevated border border-line-strong text-[11px] font-mono text-snow-muted"
-            style={{ boxShadow: "0 8px 24px rgba(0,0,0,0.5)" }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-snow" />
-            on-device transcription
-          </motion.div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/shots/panel-recording.webp"
+            width={600}
+            height={576}
+            alt="The OpenOats menu bar panel while recording: a timer at 23:47, level meters for the Mic track and System track, and a Stop Recording button"
+            className="shot-sm w-full h-auto"
+          />
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }
-

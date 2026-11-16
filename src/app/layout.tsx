@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { PITCH, SITE_URL, TITLE } from "@/lib/site";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -13,10 +14,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://openoats.com";
-const TITLE = "OpenOats — a meeting note-taker that talks back";
-const DESCRIPTION =
-  "Real-time meeting copilot for macOS. Transcribes both sides on-device, searches your own notes, and surfaces what's worth saying — right when you need it. Free, open source, MIT.";
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+});
+
+const DESCRIPTION = PITCH;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -32,21 +36,19 @@ export const metadata: Metadata = {
   generator: "Next.js",
   category: "productivity",
   keywords: [
+    "meeting recorder",
     "meeting notes",
-    "meeting copilot",
-    "real-time transcription",
+    "meeting transcription",
+    "Mac meeting recorder",
     "macOS",
-    "on-device speech recognition",
-    "AI meeting assistant",
-    "private meeting tool",
-    "Otter alternative",
-    "Fireflies alternative",
-    "knowledge base search",
-    "RAG",
+    "on-device transcription",
+    "private meeting notes",
+    "markdown meeting notes",
+    "Obsidian",
+    "Parakeet",
+    "Whisper",
     "Ollama",
-    "OpenRouter",
     "Apple Silicon",
-    "Swift",
     "open source",
   ],
   alternates: {
@@ -80,7 +82,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: "OpenOats",
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
   },
   formatDetection: {
     email: false,
@@ -90,8 +92,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  colorScheme: "dark",
+  themeColor: "#fcfcfa",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -104,9 +106,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geist.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geist.variable} ${geistMono.variable} ${newsreader.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-ink text-snow">
+      <body className="min-h-full flex flex-col bg-paper text-ink">
         {children}
         <GoogleAnalytics />
       </body>

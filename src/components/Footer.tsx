@@ -1,53 +1,47 @@
 import { Icon } from "@iconify/react";
+import { RELEASES_URL, REPO_URL } from "@/lib/site";
 import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="relative px-6 sm:px-10 py-10 border-t border-line">
-      <div className="mx-auto max-w-[1280px] flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6">
+    <footer className="relative px-5 sm:px-10 py-10 border-t border-line-soft">
+      <div className="mx-auto max-w-[1200px] flex flex-col sm:flex-row items-center sm:items-end justify-between gap-6">
         <div className="flex flex-col items-center sm:items-start gap-2">
           <div className="flex items-center gap-2">
-            <Logo size={20} />
-            <span className="font-semibold tracking-tight text-snow text-[14px]">
-              OpenOats
-            </span>
+            <Logo size={20} variant="dark" />
+            <span className="font-semibold tracking-tight text-ink text-[14px]">OpenOats</span>
           </div>
-          <span className="text-[11.5px] text-snow-faint font-mono">
+          <span className="text-[12px] text-ink-3 font-mono">
             MIT · built by{" "}
             <a
               href="https://github.com/yazinsai"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-snow-muted hover:text-snow transition-colors"
+              className="text-ink-2 hover:text-ink transition-colors"
             >
               @yazinsai
             </a>
           </span>
         </div>
 
-        <nav className="flex items-center gap-5 text-[12.5px] text-snow-muted">
+        <nav className="flex items-center gap-5 text-[13px] text-ink-2">
           <a
-            href="https://github.com/yazinsai/OpenOats"
+            href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 hover:text-snow transition-colors"
+            className="flex items-center gap-1.5 hover:text-ink transition-colors"
           >
             <Icon icon="simple-icons:github" className="w-3.5 h-3.5" />
             GitHub
           </a>
-          <a
-            href="https://github.com/yazinsai/OpenOats/releases"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-snow transition-colors"
-          >
+          <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">
             Releases
           </a>
           <a
-            href="https://github.com/yazinsai/OpenOats/issues"
+            href={`${REPO_URL}/issues`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-snow transition-colors"
+            className="hover:text-ink transition-colors"
           >
             Issues
           </a>

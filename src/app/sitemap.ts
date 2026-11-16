@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://openoats.com",
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
+      images: [`${SITE_URL}/shots/window-notes.webp`, `${SITE_URL}/shots/transcript-turns.webp`],
     },
   ];
 }

@@ -1,70 +1,60 @@
 @import "tailwindcss";
 
+/* Paper and moss: the same palette as the OpenOats 2.0 app (Theme.swift). */
 @theme {
-  --color-ink: #000000;
-  --color-ink-soft: #0a0a0a;
-  --color-ink-raised: #111111;
-  --color-ink-elevated: #1a1a1a;
-  --color-snow: #ffffff;
-  --color-snow-dim: #ededed;
-  --color-snow-muted: #a1a1aa;
-  --color-snow-mute-2: #71717a;
-  --color-snow-faint: #52525b;
-  --color-line: rgba(255, 255, 255, 0.08);
-  --color-line-strong: rgba(255, 255, 255, 0.14);
-  --color-line-bright: rgba(255, 255, 255, 0.22);
-  --color-accent: #ffffff;
-  --color-status-live: #ffffff;
+  --color-paper: #fcfcfa;
+  --color-paper-2: #f5f3ef;
+  --color-paper-3: #ede9e3;
+  --color-ink: #221f1b;
+  --color-ink-2: #5d5751;
+  --color-ink-3: #69635d;
+  --color-line: #e0dcd6;
+  --color-line-soft: #ebe7e1;
+  --color-moss: #2b6449;
+  --color-moss-deep: #22513b;
+  --color-moss-tint: #e4ede7;
+  --color-them: #3e5998;
+  --color-ember: #b8281e;
 
   --font-sans: var(--font-geist), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), "JetBrains Mono", monospace;
+  --font-serif: var(--font-newsreader), "New York", Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 html {
-  background: var(--color-ink);
-  color: var(--color-snow);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: var(--font-sans);
-  background: var(--color-ink);
-  color: var(--color-snow);
-}
-
-/* Italic accent — uses sans italic, kept as a class so we can tune it in one place */
-.accent-italic {
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-}
-
-.caret::after {
-  content: "▍";
-  color: var(--color-snow);
-  margin-left: 1px;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-::selection {
-  background: var(--color-snow);
+  background: var(--color-paper);
   color: var(--color-ink);
 }
 
-/* Hairline gradient line */
-.hairline {
-  background: linear-gradient(90deg, transparent, var(--color-line-strong), transparent);
-  height: 1px;
+::selection {
+  background: var(--color-moss);
+  color: var(--color-paper);
 }
 
-/* Live ripple */
-.live-dot {
+/* Product shots: soft window shadow that follows the rounded corners in the image */
+.shot {
+  filter: drop-shadow(0 1px 1px rgba(40, 30, 10, 0.14)) drop-shadow(0 24px 48px rgba(40, 30, 10, 0.16));
+}
+.shot-sm {
+  filter: drop-shadow(0 1px 1px rgba(40, 30, 10, 0.14)) drop-shadow(0 12px 28px rgba(40, 30, 10, 0.14));
+}
+
+.paper-grain {
+  background-image: radial-gradient(circle, rgba(34, 31, 27, 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.rec-dot {
   position: relative;
 }
-.live-dot::after {
+.rec-dot::after {
   content: "";
   position: absolute;
   inset: -3px;
@@ -78,13 +68,18 @@ body {
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-/* Subtle dot grid background utility */
-.bg-dot-grid {
-  background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
-  background-size: 20px 20px;
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-plus {
+  transform: rotate(45deg);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

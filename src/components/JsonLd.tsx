@@ -1,3 +1,6 @@
+import { FAQ } from "@/lib/faq";
+import { DMG_URL, PITCH, REPO_URL, SITE_URL } from "@/lib/site";
+
 type Props = {
   version?: string | null;
 };
@@ -8,17 +11,19 @@ export function JsonLd({ version }: Props) {
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "@id": "https://openoats.com/#app",
+        "@id": `${SITE_URL}/#app`,
         name: "OpenOats",
-        applicationCategory: "ProductivityApplication",
-        operatingSystem: "macOS 15",
-        url: "https://openoats.com",
-        downloadUrl:
-          "https://github.com/yazinsai/OpenOats/releases/latest",
-        softwareVersion: version ?? undefined,
-        description:
-          "Real-time meeting copilot for macOS. Transcribes both sides of your call on-device, retrieves context from your own notes, and surfaces relevant talking points in real time.",
+        applicationCategory: "BusinessApplication",
+        applicationSubCategory: "Meeting recorder",
+        operatingSystem: "macOS 14.2 or later (Apple Silicon)",
+        url: SITE_URL,
+        downloadUrl: DMG_URL,
+        installUrl: DMG_URL,
+        softwareVersion: version?.replace(/^v/, "") ?? undefined,
+        description: PITCH,
+        screenshot: `${SITE_URL}/shots/window-notes.webp`,
         license: "https://opensource.org/licenses/MIT",
+        isAccessibleForFree: true,
         author: {
           "@type": "Person",
           name: "Yazin Alirhayim",
@@ -30,21 +35,21 @@ export function JsonLd({ version }: Props) {
           priceCurrency: "USD",
         },
         featureList: [
-          "On-device speech recognition",
-          "Real-time dual-speaker transcript",
-          "Knowledge base search via embeddings",
-          "Bring your own LLM (OpenRouter or Ollama)",
-          "Hidden from screen sharing by default",
-          "Auto-saved sessions",
+          "Records your microphone and your Mac's audio as two tracks",
+          "Works with any meeting app, no bot joins the call",
+          "On-device transcription after the call (Parakeet v3, Whisper large-v3-turbo)",
+          "One markdown file per meeting: Notes and a You/Them transcript",
+          "Crash-safe recording, recovered on next launch",
+          "Optional Notes from local or cloud models (Ollama, LM Studio, OpenAI, OpenRouter, Anthropic, Gemini)",
+          "Optional cloud transcription",
         ],
       },
       {
         "@type": "WebSite",
-        "@id": "https://openoats.com/#website",
-        url: "https://openoats.com",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
         name: "OpenOats",
-        description:
-          "A meeting note-taker that talks back. Real-time copilot for macOS.",
+        description: PITCH,
         publisher: {
           "@type": "Person",
           name: "Yazin Alirhayim",
@@ -53,19 +58,23 @@ export function JsonLd({ version }: Props) {
       },
       {
         "@type": "Organization",
-        "@id": "https://openoats.com/#org",
+        "@id": `${SITE_URL}/#org`,
         name: "OpenOats",
-        url: "https://openoats.com",
-        logo: "https://openoats.com/icon.png",
-        sameAs: ["https://github.com/yazinsai/OpenOats"],
+        url: SITE_URL,
+        logo: `${SITE_URL}/icon.png`,
+        sameAs: [REPO_URL],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${SITE_URL}/#faq`,
+        mainEntity: FAQ.map(({ q, a }) => ({
+          "@type": "Question",
+          name: q,
+          acceptedAnswer: { "@type": "Answer", text: a },
+        })),
       },
     ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }

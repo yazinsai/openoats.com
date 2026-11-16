@@ -3,21 +3,26 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 export const runtime = "nodejs";
-export const alt = "OpenOats — a meeting note-taker that talks back";
+export const alt = "OpenOats: Press Start. Forget it's running. A minimal meeting recorder for Mac.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-async function loadFont(filename: string) {
-  const fontPath = path.join(process.cwd(), "src/app/_fonts", filename);
-  const buf = await readFile(fontPath);
+const dir = path.join(process.cwd(), "src/app");
+
+async function font(file: string) {
+  const buf = await readFile(path.join(dir, "_fonts", file));
   return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer;
 }
 
 export default async function OG() {
-  const [regular, semibold] = await Promise.all([
-    loadFont("Geist-Regular.ttf"),
-    loadFont("Geist-SemiBold.ttf"),
+  const [regular, semibold, serif, serifItalic, shot] = await Promise.all([
+    font("Geist-Regular.ttf"),
+    font("Geist-SemiBold.ttf"),
+    font("Newsreader-SemiBold.ttf"),
+    font("Newsreader-Italic.ttf"),
+    readFile(path.join(dir, "_og/window.png")),
   ]);
+  const shotSrc = `data:image/png;base64,${shot.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -26,124 +31,78 @@ export default async function OG() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          background: "#000000",
-          color: "#ffffff",
+          background: "linear-gradient(160deg, #fcfcfa 0%, #f2eee6 100%)",
+          color: "#221f1b",
           fontFamily: "Geist",
-          padding: 80,
           position: "relative",
+          overflow: "hidden",
         }}
       >
-        {/* dot grid background */}
-        <div
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={shotSrc}
+          width={760}
+          height={532}
+          alt=""
           style={{
             position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.07) 1.5px, transparent 1.5px)",
-            backgroundSize: "32px 32px",
-            opacity: 0.6,
-            display: "flex",
+            left: 610,
+            top: 140,
+            borderRadius: 14,
+            boxShadow: "0 30px 60px rgba(40,30,10,0.22), 0 0 0 1px rgba(40,30,10,0.08)",
           }}
         />
 
-        {/* faint glow */}
-        <div
-          style={{
-            position: "absolute",
-            top: -200,
-            left: 200,
-            width: 700,
-            height: 700,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.06), transparent 70%)",
-            display: "flex",
-          }}
-        />
+        <div style={{ display: "flex", flexDirection: "column", padding: "72px 0 0 76px", width: 640 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <svg width="52" height="52" viewBox="0 0 64 64" fill="none">
+              <rect width="64" height="64" rx="14" fill="#000000" />
+              <circle cx="32" cy="32" r="20" stroke="#fff" strokeWidth="5" fill="none" />
+              <circle cx="32" cy="32" r="11" stroke="#fff" strokeWidth="4" fill="none" />
+              <circle cx="32" cy="32" r="4" fill="#fff" />
+            </svg>
+            <div style={{ fontSize: 30, fontWeight: 600, letterSpacing: "-0.02em" }}>OpenOats</div>
+          </div>
 
-        {/* top: brand row */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 18,
-            position: "relative",
-          }}
-        >
-          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-            <rect width="64" height="64" rx="14" fill="#ffffff" />
-            <circle cx="32" cy="32" r="20" stroke="#000" strokeWidth="5" fill="none" />
-            <circle cx="32" cy="32" r="11" stroke="#000" strokeWidth="4" fill="none" />
-            <circle cx="32" cy="32" r="4" fill="#000" />
-          </svg>
-          <div
-            style={{
-              fontSize: 32,
-              fontWeight: 600,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            OpenOats
+          <div style={{ display: "flex", flexDirection: "column", marginTop: 64 }}>
+            <div style={{ fontFamily: "Newsreader", fontWeight: 600, fontSize: 62, lineHeight: 1, letterSpacing: "-0.02em" }}>
+              Press Start.
+            </div>
+            <div
+              style={{
+                fontFamily: "Newsreader",
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: 62,
+                lineHeight: 1.1,
+                color: "#5d5751",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Forget it&rsquo;s running.
+            </div>
+          </div>
+
+          <div style={{ marginTop: 30, fontSize: 24, lineHeight: 1.4, color: "#5d5751", display: "flex", width: 520 }}>
+            A minimal meeting recorder for Mac. One markdown file per meeting.
           </div>
         </div>
 
-        {/* center: headline */}
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            flexDirection: "column",
-            marginTop: 90,
-            gap: 24,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 96,
-              fontWeight: 600,
-              letterSpacing: "-0.045em",
-              lineHeight: 0.96,
-            }}
-          >
-            A meeting note-taker
-          </div>
-          <div
-            style={{
-              fontSize: 96,
-              fontStyle: "italic",
-              fontWeight: 400,
-              letterSpacing: "-0.025em",
-              lineHeight: 0.96,
-              color: "#a1a1aa",
-            }}
-          >
-            that talks back.
-          </div>
-        </div>
-
-        {/* bottom: meta strip */}
         <div
           style={{
             position: "absolute",
-            bottom: 70,
-            left: 80,
-            right: 80,
+            left: 76,
+            bottom: 56,
             display: "flex",
-            justifyContent: "space-between",
+            gap: 14,
             alignItems: "center",
-            fontSize: 22,
-            color: "#71717a",
+            fontSize: 20,
+            color: "#69635d",
           }}
         >
-          <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-            <span style={{ color: "#ffffff" }}>openoats.com</span>
-            <span style={{ opacity: 0.5 }}>·</span>
-            <span>macOS · Apple Silicon</span>
-          </div>
-          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <span>Free · Open source · MIT</span>
-          </div>
+          <span style={{ color: "#2b6449", fontWeight: 600 }}>openoats.com</span>
+          <span>·</span>
+          <span>Free · Open source · On your Mac</span>
         </div>
       </div>
     ),
@@ -152,6 +111,8 @@ export default async function OG() {
       fonts: [
         { name: "Geist", data: regular, weight: 400, style: "normal" },
         { name: "Geist", data: semibold, weight: 600, style: "normal" },
+        { name: "Newsreader", data: serif, weight: 600, style: "normal" },
+        { name: "Newsreader", data: serifItalic, weight: 400, style: "italic" },
       ],
     }
   );
